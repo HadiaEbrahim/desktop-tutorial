@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+class account{
+protected:
+    string accountholder;
+    int accountnumber;
+    double balance;
+public:
+    account(){}
+    account(string accountholder,int accountnumber,double balance){
+        this-> accountholder=accountholder;
+        this-> accountnumber=accountnumber;
+        this->balance=balance;
+    }
+    virtual void deposit(double amount){
+        balance+=amount;
+    }
+    virtual void withdraw(double amount){
+        if(amount<=balance){
+           balance-=amount;  
+        }
+        else{
+            cout <<"un avaliable"<<endl;
+        }
+    }
+    virtual void displayinfo(){
+        cout<<"accountholder"<<accountholder<<endl;
+        cout<<"balance"<<balance<<endl;
+    }
+    int getaccountnumber(){
+        return accountnumber;
+    }
+};
+class savingaccount:public account{
+    double interestrate;
+public:
+    savingaccount(){}
+    savingaccount(string accountholder,int accountnumber ,double balance,double interestrate){
+        this-> accountholder=accountholder;
+        this-> accountnumber=accountnumber;
+        this-> balance= balance;
+        this-> interestrate=interestrate;
+    }
+    void applyinterest(){
+        double interest=balance*(interestrate/100);
+        balance+=interest;
+    }
+};
+class bank{
+    vector<account*>accounts;
+public:
+    void addAccount(string holder, int accNum, double bal){
+        accounts.push_back(new account(holder,accNum,bal));
+    }
+    void addSavingsAccount(string holder, int accNum, double bal, double rate){
+        accounts.push_back(new savingaccount(holder,accNum,bal,rate));
+    }
+    
+    void displayAccounts(){
+        for(int i=0;i<accounts.size();i++){
+            accounts[i]->displayinfo();
+            cout<<"_____________________"<<endl;
+       
+        }
+    }
+ 
+};
+int main() {
+    bank myBank;
+
+    myBank.addAccount("Alice", 1001, 500.0);
+    myBank.addSavingsAccount("Bob", 1002, 1000.0, 3.5);
+
+   cout << "All Accounts:\n";
+    myBank.displayAccounts();
+ 
+    return 0;
+ }
