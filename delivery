@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+class Delivery{
+public:
+    virtual double cost(double weight){
+        return 0.0;
+    }
+};
+class StandardDelivery : public Delivery{
+public:
+    double cost(double weight){
+        double result = 10 + weight *2;
+        return result;
+    }
+};
+class ExpressDelivery:public Delivery{
+public:
+    double cost(double weight){
+        double result = 20 + weight * 3;
+        return result;
+    }
+};
+int main() {
+    Delivery* deliveryPtr;  
+
+    StandardDelivery standard;
+    ExpressDelivery express;
+
+    double weight = 5.0;
+    deliveryPtr = &standard;
+    cout << "Standard Delivery Cost: " << deliveryPtr->cost(weight) << " EGP" << endl;
+    deliveryPtr = &express;
+    cout << "Express Delivery Cost: " << deliveryPtr->cost(weight) << " EGP" << endl;
+    return 0;
+}
