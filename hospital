@@ -1,0 +1,134 @@
+#include <iostream>
+using namespace std;
+class person{
+protected:
+    string name;
+    int age;
+    string address;
+public:
+    person(){}
+    person(string name,int age,string address){
+      this->name=name;
+      this->age=age;
+      this->address=address;
+    }
+    virtual void displayinfo(){
+        cout<<"name"<<name<<endl;
+        cout<<"age"<<age<<endl;
+        cout<<"address"<<address<<endl;
+    }
+};
+class patient:public person{
+    string disease;
+    string treatment;
+public:
+    patient(){}
+    patient(string name,int age,string address,string disease,string treatment){
+    this->name=name;
+    this->age=age;
+    this->address=address;
+    this->disease=disease;
+    this->treatment=treatment;
+    }
+    void displayinfo(){
+        cout<<"name"<<name<<endl;
+        cout<<"age"<<age<<endl;
+        cout<<"address"<<address<<endl;
+        cout<<"disease"<<disease<<endl;
+        cout<<"treatment"<<treatment<<endl;
+    }
+};
+class Doctor:public person{
+    string specialization;
+public:
+    Doctor(){}
+    Doctor(string name, int age ,string address, string specialization){
+        this->name=name;
+        this->age=age;
+        this->address=address;
+        this->specialization=specialization;
+    }
+    void displayinfo(){
+        cout<<"name"<<name<<endl;
+        cout<<"age"<<age<<endl;
+        cout<<"address"<<address<<endl;
+        cout<<"specialization"<<specialization<<endl;
+    }
+};
+class Appointments{
+    string date;
+    string time;
+    Doctor*Doctorrr;
+    patient*patientrr;
+    string status;
+public:
+    Appointments(){}
+    Appointments(string date,string time,string status){
+        this->date=date;
+        this->time=time;
+        this->status=status;
+    }
+    void displayinfo(){
+        cout<<"date"<<date<<endl;
+        cout<<"time"<<time<<endl;
+        cout<<"status"<<status<<endl;
+    }
+};
+class Hospital{
+    Doctor Doctors[100];
+    patient patients[100];
+    Appointments appointments[100];
+    int doctorcount;
+    int patientcount;
+    int appointmentcount;
+public:
+    Hospital(){
+        doctorcount=0;
+        patientcount=0;
+        appointmentcount=0;
+    }
+    void addDoctor(string name, int age ,string address, string specialization){
+        if(doctorcount<100){
+            Doctors[doctorcount++]=Doctor( name,  age , address,  specialization);
+        }
+    }
+    void addpatient(string name,int age,string address,string disease,string treatment){
+        if(patientcount<100){
+            patients[patientcount++]=patient(name, age, address, disease, treatment);
+        }
+    }
+    void addAppointment(string date,string time,string status){
+        if(appointmentcount<100){
+            appointments[appointmentcount++]=Appointments( date, time, status);
+        }
+    }
+    void displaydoctors(){
+        cout<<"___DOCTORS LIST___"<<endl;
+        for(int i=0;i<doctorcount;i++){
+            Doctors[i].displayinfo();
+        }
+    }
+    void displaypatients(){
+        cout<<"___PATIENTS LIST___"<<endl;
+        for(int i=0;i<patientcount;i++){
+            patients[i].displayinfo();
+        }
+    }
+    void displayappointments(){
+        cout<<"___APPOINTMENTS LIST___"<<endl;
+        for(int i=0;i<appointmentcount;i++){
+            appointments[i].displayinfo();
+        }
+    }
+};
+int main() {
+    Hospital myhospital;
+    myhospital.addDoctor("Dr one",30,"cairo","spec1");
+    myhospital.addpatient("hadia",20,"cairo","disease1","treatment1");
+    myhospital.addAppointment("10/8","10:10","status1");
+    myhospital.displaydoctors();
+    myhospital.displaypatients();
+    myhospital.displayappointments();
+   
+    return 0;
+}
