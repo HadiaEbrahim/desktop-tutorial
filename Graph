@@ -1,0 +1,52 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Graph {
+private:
+    unordered_map<string, vector<string>> List;
+
+public:
+    
+    void addPerson(string name) {
+        if (List.find(name) == List.end()) {
+            List[name] = {}; 
+        }
+    }
+
+   
+    void addFriendship( string person1,  string person2) {
+        addPerson(person1); 
+        addPerson(person2);
+        List[person1].push_back(person2);
+        List[person2].push_back(person1);
+    }
+
+    
+    void printNetwork() const {
+        for (const auto& pair : List) {
+            cout << pair.first << " is friends with: ";
+            for (const auto& friendName : pair.second) {
+                cout << friendName << " ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    Graph socialNetwork;
+
+    socialNetwork.addPerson("Hadia");
+    socialNetwork.addPerson("Laila");
+    socialNetwork.addFriendship("Hadia", "Laila");
+    socialNetwork.addFriendship("Hadia", "Omar");
+    socialNetwork.addFriendship("Laila", "Omar");
+
+    socialNetwork.printNetwork();
+
+    return 0;
+}
