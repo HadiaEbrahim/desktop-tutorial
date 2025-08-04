@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+class Shape {
+public:
+    void display() {
+        cout << "This is a shape." << endl;
+    }
+};
+
+class Circle : public Shape {
+public:
+    double area(double r) {
+        return 3.14 * r * r;
+    }
+};
+
+class Rectangle : public Shape {
+public:
+    double perimeter(double l,double w) {
+        return 2 * (l + w);
+    }
+};
+int main() {
+     Circle c;
+    Rectangle r;
+
+    c.display();
+    cout << "Area of circle: " << c.area(5) << endl;
+
+    r.display();
+    cout << "Perimeter of rectangle: " << r.perimeter(3,4) << endl;
+
+    return 0;
+}
