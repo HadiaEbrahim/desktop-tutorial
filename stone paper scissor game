@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+int main() {
+    char yourmove,computermove;
+    cout<<"welcome to stone paper scissor game";
+    cout<<"enter r for rocket ,p for paper,and s for scissor";
+    cin>>yourmove;
+    srand (time(0));
+    int randnum= rand()%3;
+    if(randnum==0)computermove='r';
+    else if(randnum==1)computermove='r';
+    else computermove='s';
+    if(yourmove==computermove){
+        cout<<"it is draw";
+    }
+    else if((yourmove=='p'&& computermove=='r')|| (yourmove=='s'&& computermove='p')|| (yourmove=='r'&& computermove=='s')){
+        cout<<"you won"<<endl;
+    }
+    else{
+        cout<<"computer won"<<endl;
+    }
+    cout<<"your move:"<<yourmove<<endl;
+    cout<<"computer move"<<computermove<<endl;
+
+
+    return 0;
+}
