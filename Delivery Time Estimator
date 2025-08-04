@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+class DeliveryTimeEstimator{
+     int distance;
+     string city;
+public:
+    DeliveryTimeEstimator(){}
+    DeliveryTimeEstimator(int distance,string city){
+        this->distance=distance;
+        this->city=city;
+    }
+    virtual void stimateTime(int distance){
+        int delivarytakes=(distance / 10) + 1 ;
+        cout<<"delivarytakes="<<delivarytakes<<endl;
+    }
+     virtual void stimateTime(string name){
+         if(name=="cairo"){
+             int delivarytakes=(distance / 10) + 2 ; 
+             cout<<"delivarytakes="<<delivarytakes;
+         }
+         else if(name=="Alex"){
+              int delivarytakes=(distance / 10) + 3 ;
+              cout<<"delivarytakes="<<delivarytakes;
+         }
+         else{
+              int delivarytakes=(distance / 10) + 5 ;
+              cout<<"delivarytakes="<<delivarytakes;
+     }
+        
+ }
+};
+int main() {
+    DeliveryTimeEstimator de;
+    de.stimateTime(50);
+    de.stimateTime("cairo");
+   
+    return 0;
+}
