@@ -1,0 +1,128 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+class LibrarySystem{
+    vector<string>library;
+    vector<string>borrowedbooks;
+public:
+    LibrarySystem(){
+    library= {"7 Habits of Highly Effective People", "The Power of Now","atomic habits"};
+    }
+    void displayMenu() {
+    cout << "\n========== Library System ==========\n";
+    cout << "1. View Available Books\n";
+    cout << "2. Borrow a Book\n";
+    cout << "3. Return a Book\n";
+    cout << "4. View My Borrowed Books\n";
+    cout << "5. Add a Book to Library\n";
+    cout << "6. Exit\n";
+    cout << "Choose an option: ";
+  }
+    void displayavaliablebooks(){
+        cout<<"\n available books\n";
+        if(library.empty()){
+            cout<<"no avaialsable books\n ";
+            return;
+        }
+        else{
+            for(int i=0;i<library.size();i++){
+                cout<<i+1<<"."<<library[i]<<endl;
+            }
+        }
+    }
+    void displayborrowedbooks(){
+        cout<<"\n borrowed books\n";
+        if(borrowedbooks.empty()){
+            cout<<"no borrowed books yet\n ";
+            return;
+        }
+        else{
+            for(int i=0;i<borrowedbooks.size();i++){
+                cout<<i+1<<"."<<borrowedbooks[i]<<endl;
+            }
+        }
+    }
+    void addbooks(){
+        string book;
+        cout<<"\n enter the name of the book\n";
+        getline(cin,book);
+        library.push_back(book);
+        cout<<book<<" add to the library.\n";
+    }
+    void borrowbook(){
+        displayavaliablebooks();
+        cout<<"enter the number of the book:\n";
+        if(library.empty()){
+            cout<<"no available books to borrow\n";
+            return;
+        }
+        int choice;
+        cout<<"enter the number of the book to borrow:";
+        cin>>choice;
+        if(choice<1||choice>library.size()){
+            cout<<"invalid choice\n";
+            return;
+        }
+        string book=library[choice-1];
+        borrowedbooks.push_back(book);
+        library.erase(library.begin()+(choice-1));
+        cout<<"you borrowed:"<<book<<endl;
+    }
+    void returnbook(){
+        displayborrowedbooks();
+        int choice;
+        cout<<"enter the number of the book:\n";
+        cin>>choice;
+        if(borrowedbooks.empty()){
+            cout<<"no available books to return\n";
+            return;
+        }
+        if(choice<1||choice>borrowedbooks.size()){
+            cout<<"invalid choice\n";
+            return;
+        }
+        string book=borrowedbooks[choice-1];
+        library.push_back(book);
+        borrowedbooks.erase(borrowedbooks.begin()+(choice-1));
+        cout<<"you returned:"<<book<<endl;
+    }
+    void start(){
+        int option;
+    do{
+        displayMenu(); 
+        cin >> option;
+    
+    switch(option){
+        case 1:
+            displayavaliablebooks();
+            break;
+        case 2:
+            borrowbook();
+            break;
+        case 3:
+            returnbook();
+            break;
+        case 4:
+            displayborrowedbooks();
+            break;
+        case 5:
+            addbooks();
+            break;
+        case 6:
+            cout<<"thank you for using the library system,goodbye.\n";
+        default:
+            cout<<"invalid choice.\n";
+    }
+    } while(option!=6);
+        
+    }
+};
+int main() {
+    LibrarySystem system;
+    system.start();
+   
+    return 0;
+}
