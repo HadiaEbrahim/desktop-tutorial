@@ -70,7 +70,7 @@ using namespace std;
         }
         string book=borrowedbooks[choice-1];
         library.push_back(book);
-        borrowedbooks.erase(library.begin()+(choice-1));
+        borrowedbooks.erase(borrowedbooks.begin()+(choice-1));
         cout<<"you returned:"<<book<<endl;
     }
 int main() {
