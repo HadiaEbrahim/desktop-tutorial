@@ -1,0 +1,130 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+
+using namespace std;
+struct product{
+    int code;
+    string name;
+    int price;
+    int quantity;
+};
+void AddProduct(vector<product>&inventory){
+    product n;
+    cout<<" enter the code of product\n";
+    cin>>n.code;
+    cout<<" enter the name of product\n";
+    cin.ignore();
+    getline(cin,n.name);
+    cout<<" enter the price of the product\n";
+    cin>>n.price;
+    cout<<" enter the quantity of the product\n";
+    cin>>n.quantity;
+    inventory.push_back(n);
+    cout <<" product successfully added\n";
+}
+void DisplayProduct(const vector<product>&inventory){
+    if(inventory.empty()){
+        cout<<" no registered products\n";
+        return;
+    }
+    cout<<"\n ________The list of products________\n";
+    for(int i=0;i<inventory.size();i++){
+        cout<<"product number "<< i+1<<":"<<"code:"<<inventory[i].code<<"| name:"<<inventory[i].name<<"| price"<<inventory[i].price<<"| quantity:"<<inventory[i].quantity<<endl;
+    }
+}
+void DeleteProduct(vector<product>&inventory){
+    cout<<"\n enter the code of the product\n";
+    int code;
+    cin>>code;
+    bool found=false;
+    for(int i=0;i<inventory.size();i++){
+        if(inventory[i].code==code){
+            inventory.erase(inventory.begin()+i);
+            cout<<"product erased successfully\n";
+            found=true;
+            break;
+        }
+    }
+    if(!found){
+        cout<<"\n product not available\n";
+    }
+}
+void searchproduct(vector<product>inventory){
+    cout<<"\n enter the name of the product\n";
+    string name;
+    getline(cin,name);
+    bool found=false;
+    for(int i=0;i<inventory.size();i++){
+        if(inventory[i].name==name){
+            cout<<"The product:"<<"|code:"<<inventory[i].code<<"|name:"<<inventory[i].name<<"|price:"<<inventory[i].price<<"|quantity:"<<inventory[i].quantity<<endl;
+            found=true;
+            break;
+        }
+    }
+    if(!found){
+        cout<<"\nsorry,product not available\n";
+    }
+}
+void editquantity(vector<product>&inventory){
+    cout<<"enter the name of product\n";
+    cin.ignore();
+    string name;
+    getline(cin,name);
+    bool found=false;
+    for(int i=0;i<inventory.size();i++){
+        if(inventory[i].name==name){
+            cout<<"insert the new quantity\n";
+            int newquantity;
+            cin>>newquantity;
+            inventory[i].quantity=newquantity;
+            cout<<"the quantity of product was modified\n";
+            found=true;
+            break;
+        }
+    }
+    if(!found){
+        cout<<"product not available\n";
+    }
+}
+int main() {
+    vector<product>inventory;
+    int choice;
+    do{
+        cout<<"________INVENTORY SYSTEM_________\n";
+        cout<<"1.add new product\n";
+        cout<<"2.display products\n";
+        cout<<"3.delete product\n";
+        cout<<"4.search for a product\n";
+        cout<<"5.edit the quantity of product\n";
+        cout<<"6.Exist\n";
+        cout<<"choose an option\n";
+        cin>>choice;
+        cin.ignore();
+        switch(choice){
+            case 1:
+            AddProduct(inventory);
+            break;
+            case 2:
+            DisplayProduct(inventory);
+            break;
+            case 3:
+            DeleteProduct(inventory);
+            break;
+            case 4:
+            searchproduct(inventory);
+            break;
+            case 5:
+            editquantity(inventory);
+            break;
+            case 6:
+            cout<<"thanks for using the system goodbye\n";
+            break;
+            default:
+            cout<<"invalid choice try again\n";
+        }
+    }while(choice!=6);
+    
+    return 0;
+}
